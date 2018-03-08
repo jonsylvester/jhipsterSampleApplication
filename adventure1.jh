@@ -1,0 +1,79 @@
+entity UserGroup {
+	id String required,
+    userGroup String required
+}
+
+entity User {
+	userName String required,
+    password String required,
+    firstName String,
+    lastName String,
+    companyName String,
+    emailId String required,
+    address String required,
+    city String required,
+    state String required,
+    pinCode String required,
+    country String required,
+    mobileNo String required,
+    telephoneNo1 String required,
+    telephoneNo2 String,
+    telephoneNo2 String,
+    active Boolean required,
+    subscriptionStart Instant,
+    subscriptionEnd Instant,
+    lastLogin Instant,
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Event {
+	id String required,
+    name String required,
+    description String,
+    location String required,
+    city String required,
+    state String required,
+    country String required,
+    startDate Instant required,
+    endDate Instant required,
+    b2bCost Long required,
+    b2cCost Long required,
+    minParticipants Integer required,
+    maxParticipants Integer required,
+    active Boolean required
+}
+
+//relationship OneToOne {
+//	Country{region} to Region
+//}
+
+//relationship ManyToMany {
+//	Job{task(title)} to Task{job}
+//}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	UserGroup{userGroup} to User
+}
+
+relationship OneToMany {
+	User{userName} to Event
+}
+
+//relationship ManyToOne {
+//	Employee{manager} to Employee
+//}
+
+
+// Set pagination options
+paginate Event, User with infinite-scroll
+paginate Event with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+//except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
